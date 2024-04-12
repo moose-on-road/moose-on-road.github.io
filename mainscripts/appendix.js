@@ -1,4 +1,18 @@
 
+/// Create a new script element to load the Model Viewer library
+const script = document.createElement('script');
+script.type = 'module';
+script.src = 'https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js';
+
+const loadBar = document.createElement('loadBar');
+loadBar.type = 'module';
+loadBar.src ="./loadBar.js";
+// Append the script element to the document's head to load the library
+document.head.appendChild(script);
+document.head.appendChild(loadBar);
+
+// Once the library is loaded, you can continue with your logic that uses Model Viewer
+
 script.onload = function() {
     // Your code that uses Model Viewer goes here
     // This code will run after the Model Viewer library has been loaded// Extract the model attribute value from the iframe
