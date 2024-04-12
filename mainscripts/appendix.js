@@ -1,0 +1,45 @@
+
+// Create a new script element to load the Model Viewer library
+const script = document.createElement('script');
+script.type = 'module';
+script.src = 'https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js';
+
+const loadBar = document.createElement('loadBar');
+loadBar.type = 'module';
+loadBar.src ="./loadBar.js";
+// Append the script element to the document's head to load the library
+document.head.appendChild(script);
+document.head.appendChild(loadBar);
+
+// Once the library is loaded, you can continue with your logic that uses Model Viewer
+script.onload = function() {
+    // Your code that uses Model Viewer goes here
+    // This code will run after the Model Viewer library has been loaded// Extract the model attribute value from the iframe
+const iframe = document.querySelector('iframe');
+const model = iframe.getAttribute('model');
+
+// Define the base URL for the models
+const baseModelURL = 'https://moose-on-road.github.io/3DFiles/';
+
+// Define the base URL for the posters
+const basePosterURL = 'https://moose-on-road.github.io/3DFiles/';
+
+// Construct the modelURL and posterURL based on the pathname
+const modelURL = `${baseModelURL}${model}.glb`;
+const posterURL = `${basePosterURL}${model}.webp`;
+
+// Create a new model-viewer element with the dynamically generated URLs
+const modelViewerElement = document.createElement('model-viewer');
+
+modelViewerElement.setAttribute('src', modelURL);
+modelViewerElement.setAttribute('poster', posterURL);
+modelViewerElement.setAttribute('ar', '');
+modelViewerElement.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
+modelViewerElement.setAttribute('camera-controls', '');
+modelViewerElement.setAttribute('skybox-height', '0.5m');
+modelViewerElement.setAttribute('shadow-intensity', '1');
+modelViewerElement.setAttribute('environment-image', 'https://assets.zyrosite.com/YbNnDP9X9WcwbNGX/aircraft_workshop_01_1k-AE0vD1a53xUr6lBK.hdr');
+modelViewerElement.setAttribute('exposure', '1.5');
+modelViewerElement.setAttribute('style', 'width: 640px; height: 480px; border: 2px solid #eeeeee;');
+
+};
