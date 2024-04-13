@@ -23,22 +23,27 @@ document.head.appendChild(script);
 
 // Once the library is loaded, you can continue with your logic that uses Model Viewer
 
-script.onload = function() {
+function getModel(modelName) {
     // Your code that uses Model Viewer goes here
     // This code will run after the Model Viewer library has been loaded// Extract the model attribute value from the iframe
 
     window.addEventListener('message', function(event) {
     // Verify the origin of the message
-    if (event.origin !== "https://www.whiskystick.ca") { // Replace with your parent document's origin
+    if (event.origin !== "*") { // Replace with your parent document's origin
         return; // Ignore messages from untrusted origins
     }
     const data = JSON.parse(event.data);
     if (data.model) {
         // Use the model data as needed
         console.log("Model received:", data.model);
-        const iframe = document.querySelector('iframe');
-        const model = iframe.getAttribute('model');
+        //const iframe = document.querySelector('iframe');
+        //const model = iframe.getAttribute('model');
+        const modelName = data.model;
+        addElement(modelName);
+    };}
+    );}
 
+function addElement(modelName) {
 // Define the base URL for the models
 const baseModelURL = 'https://moose-on-road.github.io/3DFiles/';
 
@@ -46,8 +51,8 @@ const baseModelURL = 'https://moose-on-road.github.io/3DFiles/';
 const basePosterURL = 'https://moose-on-road.github.io/3DFiles/';
 
 // Construct the modelURL and posterURL based on the pathname
-const modelURL = `${baseModelURL}${model}.glb`;
-const posterURL = `${basePosterURL}${model}.webp`;
+const modelURL = `${baseModelURL}${modelName}.glb`;
+const posterURL = `${basePosterURL}${modelName}.webp`;
 
 // Create a new model-viewer element with the dynamically generated URLs
 const modelViewerElement = document.createElement('model-viewer');
@@ -76,8 +81,8 @@ document.body.appendChild(modelViewerElement);
 
         // Here, you can manipulate the DOM or perform other actions based on the received data
     }
-}, false);
-}
+
+
 
 </script>
 </html>
