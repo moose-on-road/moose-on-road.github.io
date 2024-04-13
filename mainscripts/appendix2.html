@@ -26,8 +26,18 @@ document.head.appendChild(loadBar);
 script.onload = function() {
     // Your code that uses Model Viewer goes here
     // This code will run after the Model Viewer library has been loaded// Extract the model attribute value from the iframe
-const iframe = document.querySelector('iframe');
-const model = iframe.getAttribute('model');
+
+    window.addEventListener('message', function(event) {
+    // Verify the origin of the message
+    if (event.origin !== "https://www.whiskystick.ca") { // Replace with your parent document's origin
+        return; // Ignore messages from untrusted origins
+    }
+    const data = JSON.parse(event.data);
+    if (data.model) {
+        // Use the model data as needed
+        console.log("Model received:", data.model);
+        const iframe = document.querySelector('iframe');
+//const model = iframe.getAttribute('model');
 
 // Define the base URL for the models
 const baseModelURL = 'https://moose-on-road.github.io/3DFiles/';
@@ -56,5 +66,13 @@ modelViewerElement.setAttribute('style', 'width: 640px; height: 480px; border: 2
 
 document.body.appendChild(modelViewerElement);
 
-};</script>
+
+        // Here, you can manipulate the DOM or perform other actions based on the received data
+    }
+}, false);
+}
+
+</script>
 </html>
+
+
