@@ -14,12 +14,12 @@ const script = document.createElement('script');
 script.type = 'module';
 script.src = 'https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js';
 
-const loadBar = document.createElement('loadBar');
-loadBar.type = 'module';
-loadBar.src ="./loadBar.js";
+//const loadBar = document.createElement('loadBar');
+//loadBar.type = 'module';
+//loadBar.src ="./loadBar.js";
 // Append the script element to the document's head to load the library
 document.head.appendChild(script);
-document.head.appendChild(loadBar);
+//document.head.appendChild(loadBar);
 
 // Once the library is loaded, you can continue with your logic that uses Model Viewer
 
@@ -37,7 +37,7 @@ script.onload = function() {
         // Use the model data as needed
         console.log("Model received:", data.model);
         const iframe = document.querySelector('iframe');
-//const model = iframe.getAttribute('model');
+        const model = iframe.getAttribute('model');
 
 // Define the base URL for the models
 const baseModelURL = 'https://moose-on-road.github.io/3DFiles/';
@@ -64,10 +64,14 @@ modelViewerElement.setAttribute('environment-image', 'https://assets.zyrosite.co
 modelViewerElement.setAttribute('exposure', '1.5');
 modelViewerElement.setAttribute('style', 'width: 640px; height: 480px; border: 2px solid #eeeeee;');
 
-function sendMessage() {
-      const reply = 'document.body.appendChild(modelViewerElement)';
-      parent.postMessage(reply, 'https://www.whiskystick.ca');
-    }//document.body.appendChild(modelViewerElement);
+document.body.appendChild(modelViewerElement);
+
+/**
+    function sendMessage() {
+          const reply = 'model-viewer';
+          parent.postMessage(reply, 'https://www.whiskystick.ca',[modelViewerElement]);
+        }
+*/
 
 
         // Here, you can manipulate the DOM or perform other actions based on the received data
