@@ -64,7 +64,10 @@ modelViewerElement.setAttribute('environment-image', 'https://assets.zyrosite.co
 modelViewerElement.setAttribute('exposure', '1.5');
 modelViewerElement.setAttribute('style', 'width: 640px; height: 480px; border: 2px solid #eeeeee;');
 
-document.body.appendChild(modelViewerElement);
+function sendMessage() {
+      const reply = 'document.body.appendChild(modelViewerElement)';
+      parent.postMessage(reply, 'https://www.whiskystick.ca');
+    }//document.body.appendChild(modelViewerElement);
 
 
         // Here, you can manipulate the DOM or perform other actions based on the received data
