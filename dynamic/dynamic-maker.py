@@ -1,5 +1,9 @@
 import os
 
+# Change the current working directory to the directory of the script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+os.chdir(script_dir)
+
 # Define the template with placeholders for the paths
 html_template = """
 <body>
@@ -22,6 +26,9 @@ def find_files(directory, extensions):
 
 def update_html(directory):
     """Update or create the HTML file in the given directory."""
+    
+    print(f"Processing directory: {directory}")  # This line prints the current directory being processed
+    
     # Define the file types you're looking for
     model_exts = ['.glb']
     image_exts = ['.webp']
