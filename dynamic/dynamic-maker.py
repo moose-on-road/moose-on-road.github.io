@@ -42,6 +42,13 @@ def update_html(directory):
     poster_path = next((img for img in images if img.endswith('.webp')), "default_poster.webp")
     """env_image_path = next((img for img in images if img.endswith('.hdr')), "default_env.hdr")"""
     
+    # Check if the HTML file exists and contains a specific marker
+    html_file_path = os.path.join(directory, os.path.basename(directory) + "-dynamic.html")
+    if os.path.exists(html_file_path):
+        with open(html_file_path, "r") as html_file:
+            if "custom-attribute" in html_file.read():
+                print(f"Custom attribute detected in {html_file_path}. Skipping update.")
+                return  # Skip updating this file
     
     # Fill the template
     html_content = html_template.format(model_path=(os.path.basename(directory) + "/" + model_path), poster_path=(os.path.basename(directory) + "/" + poster_path))
