@@ -11,7 +11,7 @@ html_template = """
 style="width: 640px; height: 480px; border:2px solid #eeeeee;">
       <div class="progress-bar hide" slot="progress-bar">
           <div class="update-bar"></div>
-      </div>
+     </div>
     </model-viewer> 
 </body> 
 <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
@@ -42,21 +42,44 @@ def update_html(directory):
     poster_path = next((img for img in images if img.endswith('.webp')), "default_poster.webp")
     """env_image_path = next((img for img in images if img.endswith('.hdr')), "default_env.hdr")"""
     
-    # Check if the HTML file exists and contains a specific marker
-    html_file_path = os.path.join(directory, os.path.basename(directory) + "-dynamic.html")
-    if os.path.exists(html_file_path):
-        with open(html_file_path, "r") as html_file:
-            if "custom-attribute" in html_file.read():
-                print(f"Custom attribute detected in {html_file_path}. Skipping update.")
-                return  # Skip updating this file
-    
     # Fill the template
     html_content = html_template.format(model_path=(os.path.basename(directory) + "/" + model_path), poster_path=(os.path.basename(directory) + "/" + poster_path))
 
-    # Write the HTML file
-    with open(os.path.join(directory, os.path.basename(directory) + "-dynamic.html"), "w") as html_file:
-        html_file.write(html_content)
+    html_file_path = os.path.join(directory, os.path.basename(directory) + "-dynamic.html")
+    if os.path.exists(html_file_path):
+        with open(html_file_path, "r") as html_file:
+            existing_content = html_file.read()
 
+        # Check if the file should be skipped
+        if "skip-update" in existing_content:
+            print(f"Skipping update for {html_file_path} due to 'skip-update' marker.")
+            return  # Skip the rest of the function
+
+        # Check for existing "new content section" and remove it
+        start_marker = "<!-- Updated generic code Start"
+        end_marker = "Updated generic code End -->"
+        start_pos = existing_content.find(start_marker)
+        end_pos = existing_content.find(end_marker)
+        
+        if start_pos != -1 and end_pos != -1:
+            # Remove the existing section including the end marker
+            existing_content = existing_content[:start_pos] + existing_content[end_pos + len(end_marker):]
+        
+        if "custom-attribute" in existing_content:
+            print(f"Custom attribute detected in {html_file_path}. Injecting new model-viewer element.")
+            # Find the position to insert the new model-viewer element
+            insert_pos = existing_content.find('<body>')
+            if insert_pos != -1:
+                # Insert the new model-viewer element before <body> tag
+                new_content = existing_content[:insert_pos] + "<!-- Updated generic code Start\n" + html_content + "\n Updated generic code End -->\n" + existing_content[insert_pos:]
+                with open(html_file_path, "w") as html_file:
+                    html_file.write(new_content)
+            return
+    
+    # If the file does not exist or does not contain the custom attribute, write the new content
+    with open(html_file_path, "w") as html_file:
+        html_file.write(html_content)
+        
 def main():
     root_dir = "../products"  # Change this to your directory path
     for subdir, dirs, files in os.walk(root_dir):
