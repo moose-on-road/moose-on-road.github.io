@@ -1,0 +1,15 @@
+GitHub Copilot
+Given your workflow, it does seem redundant to create and load a static HTML file just to capture the image if the .glb files are already hosted and displayable online. You can simplify the process by directly capturing the image from the hosted URL using a headless browser like Puppeteer.
+
+Here is a simplified approach using Puppeteer to capture the thumbnail directly from the hosted URL:
+
+Step 1: Create a Node.js script to capture the thumbnail
+Create a Node.js script named generate-thumbnail.js:
+
+Step 2: Update your Python script to call the Node.js script
+Update your image-generator.py script to call the Node.js script using subprocess:
+
+Step 3: Run the scripts
+Run dynamic-maker.py to generate the HTML files.
+Run image-generator.py to generate the thumbnails.
+This approach eliminates the need to create and load a static HTML file, as the thumbnails are generated directly from the hosted URLs.
