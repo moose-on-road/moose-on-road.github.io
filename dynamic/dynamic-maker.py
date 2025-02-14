@@ -15,6 +15,9 @@ style="width: 640px; height: 480px; border:2px solid #eeeeee;">
     </model-viewer> 
 </body> 
 <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+<!--
+<embed src="https://moose-on-road.github.io/products/{model_path}-dynamic.html" width="700px" height="500px"></embed>
+-->
 """
 
 def find_files(directory, extensions):
@@ -39,7 +42,7 @@ def update_html(directory):
 
     # Simple logic to pick a model, poster, and environment image
     model_path = models[0] if models else "default_model.glb"
-    poster_path = next((img for img in images if img.endswith('.webp')), "default_poster.webp")
+    poster_path = next((img for img in images if img.endswith('.webp')))
     """env_image_path = next((img for img in images if img.endswith('.hdr')), "default_env.hdr")"""
     
     # Fill the template
