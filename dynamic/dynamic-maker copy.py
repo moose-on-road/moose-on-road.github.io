@@ -7,7 +7,7 @@ os.chdir(script_dir)
 # Define the template with placeholders for the paths
 html_template = """
 <body>
-<model-viewer id="myModel" src="https://moose-on-road.github.io/products/{model_path}" camera-controls poster="https://moose-on-road.github.io/products/{poster_path}" shadow-intensity="1" environment-image="https://moose-on-road.github.io/dynamic/studio.hdr"  environment-image-rotation="3.1rad" exposure="1"
+<model-viewer id="myModel" src="https://moose-on-road.github.io/products/{model_path}" camera-controls poster="https://moose-on-road.github.io/products/{poster_path}" shadow-intensity="1" environment-image="https://moose-on-road.github.io/dynamic/studio.hdr" exposure="1"
 style="width: 640px; height: 480px; border:2px solid #eeeeee;">
       <div class="progress-bar hide" slot="progress-bar">
           <div class="update-bar"></div>
@@ -18,8 +18,17 @@ style="width: 640px; height: 480px; border:2px solid #eeeeee;">
 <script>
   const modelViewer = document.getElementById('myModel');
 
+  // Convert hex to RGBA
+  function hexToRgba(hex) {{
+    const r = parseInt(hex.slice(1, 3), 16) / 255;
+    const g = parseInt(hex.slice(3, 5), 16) / 255;
+    const b = parseInt(hex.slice(5, 7), 16) / 255;
+    const a = parseInt(hex.slice(7, 9), 16) / 255 || 1; // Default to full opacity if alpha is missing
+    return [r, g, b, a];
+  }}
+
   // Your hex color code
-  const hexColor = '#e3a668'; // Example hex color
+  const hexColor = '#e3a668d9'; // Example hex color with alpha channel
 
   // Wait for the model to load
   modelViewer.addEventListener('load', (event) => {{
@@ -28,13 +37,14 @@ style="width: 640px; height: 480px; border:2px solid #eeeeee;">
       const materials = model.materials;
       if (materials && materials.length > 0) {{
         materials.forEach(material => {{
-          // Set the base color factor using the hex color code
-          material.pbrMetallicRoughness.setBaseColorFactor(hexColor);
-          // Set the metallic factor to 0.2
-          material.pbrMetallicRoughness.metallicFactor = 0.2;
-          // Set the roughness factor to 0.1
+          // Set the base color factor using the RGBA values from the hex code
+          material.pbrMetallicRoughness.setBaseColorFactor(hexToRgba(hexColor));
+        
+                  // Set the metallic factor to 0.5
+          material.pbrMetallicRoughness.metallicFactor = 0.4;
+          // Set the roughness factor to 0.4
           material.pbrMetallicRoughness.roughnessFactor = 0.1;
-        }});
+          }});
       }}
     }}
   }});
