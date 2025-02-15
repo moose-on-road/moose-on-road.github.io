@@ -17,29 +17,19 @@ style="width: 640px; height: 480px; border:2px solid #eeeeee;">
   modelViewer.addEventListener('load', (event) => {
     const model = modelViewer.model;
     if (model) {
-      const materials = model.materials;
-      if (materials && materials.length > 0) {
-        materials.forEach(material => {
-          // Log the material properties before setting them
-          console.log('Before:', material.pbrMetallicRoughness);
-
-          // Set the base color factor using the hex color code
-          material.pbrMetallicRoughness.setBaseColorFactor(hexColor);
+        const materials = model.materials;
+        if (materials && materials.length > 0) {
+          materials.forEach((material) => {
+            // Set the base color factor using the hex color code
+            material.pbrMetallicRoughness.setBaseColorFactor(hexColor);
             // Set the metallic factor to 0.2
             material.pbrMetallicRoughness.setMetallicFactor(0.2);
             // Set the roughness factor to 0.1
             material.pbrMetallicRoughness.setRoughnessFactor(0.1);
-
-          // Log the material properties after setting them
-          console.log('After:', material.pbrMetallicRoughness);
-        });
-      } else {
-        console.warn('No materials found on the model.');
+          });
+        }
       }
-    } else {
-      console.warn('Model not found.');
-    }
-  });
+    });
 </script>
 <!--
 <embed src="https://moose-on-road.github.io/products/pedestal/pedestal-dynamic.html" width="700px" height="500px"></embed>
