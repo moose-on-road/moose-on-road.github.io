@@ -18,8 +18,9 @@ style="width: 640px; height: 480px; border:2px solid #eeeeee;">
       const materials = model.materials;
       if (materials && materials.length > 0) {
         materials.forEach(material => {
-          // Set the base color factor (RGBA)
-          material.pbrMetallicRoughness.setBaseColorFactor(#e3a668d9);
+      {
+          // Set the base color factor using the RGBA values from the hex code
+          material.pbrMetallicRoughness.setBaseColorFactor(hexToRgba(#e3a668d9));
         });
       }
     }
