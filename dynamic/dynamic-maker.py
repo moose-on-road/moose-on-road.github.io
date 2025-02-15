@@ -7,7 +7,7 @@ os.chdir(script_dir)
 # Define the template with placeholders for the paths
 html_template = """
 <body>
-<model-viewer id="myModel" src="https://moose-on-road.github.io/products/{model_path}" camera-controls poster="https://moose-on-road.github.io/products/{poster_path}" shadow-intensity="1" environment-image="https://moose-on-road.github.io/dynamic/studio.hdr"  environment-image-rotation="3.1rad" exposure="1"
+<model-viewer id="myModel" src="https://moose-on-road.github.io/products/{model_path}" camera-controls poster="https://moose-on-road.github.io/products/{poster_path}" shadow-intensity="1" environment-image="https://moose-on-road.github.io/dynamic/studio.hdr" exposure="1"
 style="width: 640px; height: 480px; border:2px solid #eeeeee;">
       <div class="progress-bar hide" slot="progress-bar">
           <div class="update-bar"></div>
