@@ -1,4 +1,3 @@
-
 <body>
 <model-viewer id="myModel" src="https://moose-on-road.github.io/products/pedestal/pedestal.glb" camera-controls poster="https://moose-on-road.github.io/products/pedestal/pedestal.webp" shadow-intensity="1" environment-image="https://moose-on-road.github.io/products/pedestal/studio.hdr" exposure="1"
 style="width: 640px; height: 480px; border:2px solid #eeeeee;">
@@ -21,14 +20,24 @@ style="width: 640px; height: 480px; border:2px solid #eeeeee;">
       const materials = model.materials;
       if (materials && materials.length > 0) {
         materials.forEach(material => {
+          // Log the material properties before setting them
+          console.log('Before:', material.pbrMetallicRoughness);
+
           // Set the base color factor using the hex color code
           material.pbrMetallicRoughness.setBaseColorFactor(hexColor);
-          // Set the metallic factor to 0.2
-          material.pbrMetallicRoughness.metallicFactor = 0.2;
-          // Set the roughness factor to 0.1
-          material.pbrMetallicRoughness.roughnessFactor = 0.1;
+          // Set the metallic factor to 0.8
+          material.pbrMetallicRoughness.metallicFactor = 0.8;
+          // Set the roughness factor to 0.2
+          material.pbrMetallicRoughness.roughnessFactor = 0.2;
+
+          // Log the material properties after setting them
+          console.log('After:', material.pbrMetallicRoughness);
         });
+      } else {
+        console.warn('No materials found on the model.');
       }
+    } else {
+      console.warn('Model not found.');
     }
   });
 </script>
