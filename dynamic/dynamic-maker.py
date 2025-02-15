@@ -39,7 +39,12 @@ style="width: 640px; height: 480px; border:2px solid #eeeeee;">
         materials.forEach(material => {{
           // Set the base color factor using the RGBA values from the hex code
           material.pbrMetallicRoughness.setBaseColorFactor(hexToRgba(hexColor));
-        }});
+        
+                  // Set the metallic factor to 0.5
+          material.pbrMetallicRoughness.metallicFactor = 0.4;
+          // Set the roughness factor to 0.4
+          material.pbrMetallicRoughness.roughnessFactor = 0.1;
+          }});
       }}
     }}
   }});

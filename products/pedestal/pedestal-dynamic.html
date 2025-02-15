@@ -1,10 +1,11 @@
+
 <body>
 <model-viewer id="myModel" src="https://moose-on-road.github.io/products/pedestal/pedestal.glb" camera-controls poster="https://moose-on-road.github.io/products/pedestal/pedestal.webp" shadow-intensity="1" environment-image="https://moose-on-road.github.io/dynamic/studio.hdr" exposure="2"
 style="width: 640px; height: 480px; border:2px solid #eeeeee;">
       <div class="progress-bar hide" slot="progress-bar">
           <div class="update-bar"></div>
-      </div>
-  </model-viewer> 
+     </div>
+    </model-viewer> 
 </body> 
 <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 <script>
@@ -31,7 +32,12 @@ style="width: 640px; height: 480px; border:2px solid #eeeeee;">
         materials.forEach(material => {
           // Set the base color factor using the RGBA values from the hex code
           material.pbrMetallicRoughness.setBaseColorFactor(hexToRgba(hexColor));
-        });
+        
+                  // Set the metallic factor to 0.5
+          material.pbrMetallicRoughness.metallicFactor = 0.4;
+          // Set the roughness factor to 0.4
+          material.pbrMetallicRoughness.roughnessFactor = 0.1;
+          });
       }
     }
   });
