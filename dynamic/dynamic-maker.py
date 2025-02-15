@@ -7,7 +7,7 @@ os.chdir(script_dir)
 # Define the template with placeholders for the paths
 html_template = """
 <body>
-<model-viewer src="https://moose-on-road.github.io/products/{model_path}" camera-controls poster="https://moose-on-road.github.io/products/{poster_path}" shadow-intensity="1" environment-image="https://moose-on-road.github.io/dynamic/studio.hdr" exposure="2"
+<model-viewer id="myModel" src="https://moose-on-road.github.io/products/{model_path}" camera-controls poster="https://moose-on-road.github.io/products/{poster_path}" shadow-intensity="1" environment-image="https://moose-on-road.github.io/dynamic/studio.hdr" exposure="2"
 style="width: 640px; height: 480px; border:2px solid #eeeeee;">
       <div class="progress-bar hide" slot="progress-bar">
           <div class="update-bar"></div>
@@ -15,8 +15,37 @@ style="width: 640px; height: 480px; border:2px solid #eeeeee;">
     </model-viewer> 
 </body> 
 <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+<script>
+  const modelViewer = document.getElementById('myModel');
+
+  // Convert hex to RGBA
+  function hexToRgba(hex) {{
+    const r = parseInt(hex.slice(1, 3), 16) / 255;
+    const g = parseInt(hex.slice(3, 5), 16) / 255;
+    const b = parseInt(hex.slice(5, 7), 16) / 255;
+    const a = parseInt(hex.slice(7, 9), 16) / 255 || 1; // Default to full opacity if alpha is missing
+    return [r, g, b, a];
+  }}
+
+  // Your hex color code
+  const hexColor = '#e3a668d9'; // Example hex color with alpha channel
+
+  // Wait for the model to load
+  modelViewer.addEventListener('load', (event) => {{
+    const model = modelViewer.model;
+    if (model) {{
+      const materials = model.materials;
+      if (materials && materials.length > 0) {{
+        materials.forEach(material => {{
+          // Set the base color factor using the RGBA values from the hex code
+          material.pbrMetallicRoughness.setBaseColorFactor(hexToRgba(hexColor));
+        }});
+      }}
+    }}
+  }});
+</script>
 <!--
-<embed src="https://moose-on-road.github.io/products/{model_path}-dynamic.html" width="700px" height="500px"></embed>
+<embed src="https://moose-on-road.github.io/products/{embed_path}-dynamic.html" width="700px" height="500px"></embed>
 -->
 """
 
@@ -43,10 +72,10 @@ def update_html(directory):
     # Simple logic to pick a model, poster, and environment image
     model_path = models[0] if models else "default_model.glb"
     poster_path = next((img for img in images if img.endswith('.webp')))
-    """env_image_path = next((img for img in images if img.endswith('.hdr')), "default_env.hdr")"""
+    embed_path = model_path.replace('.glb', '')  # Remove the .glb extension for the embed path
     
     # Fill the template
-    html_content = html_template.format(model_path=(os.path.basename(directory) + "/" + model_path), poster_path=(os.path.basename(directory) + "/" + poster_path))
+    html_content = html_template.format(model_path=(os.path.basename(directory) + "/" + model_path), poster_path=(os.path.basename(directory) + "/" + poster_path), embed_path=(os.path.basename(directory) + "/" + embed_path))
 
     html_file_path = os.path.join(directory, os.path.basename(directory) + "-dynamic.html")
     if os.path.exists(html_file_path):
