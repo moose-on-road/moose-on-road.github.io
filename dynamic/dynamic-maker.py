@@ -45,7 +45,7 @@ html_template = """
         }});
       }}
           // Rotate the camera
-          modelViewer.cameraOrbit = '180deg 75deg 4m'; // Adjust the values as needed
+          modelViewer.cameraOrbit = "180deg 75deg 4m"; // Adjust the values as needed
     }}
   }});
     </script>
