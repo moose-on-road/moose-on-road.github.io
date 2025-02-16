@@ -17,7 +17,7 @@ async function generateThumbnail(modelUrl, outputPath) {
     const htmlContent = `
     <html>
     <body>
-    <embed src="https://moose-on-road.github.io/products/${embedPath}-dynamic.html" width= "660px" height= "480px"></embed>
+    <embed src="https://moose-on-road.github.io/products/${embedPath}-dynamic.html" width= "700px" height= "500px"></embed>
     </body>
     </html>
     `;
@@ -34,7 +34,7 @@ async function generateThumbnail(modelUrl, outputPath) {
 
     // Add a delay to ensure the model loads
     console.log('Waiting for model to load...');
-    await new Promise(resolve => setTimeout(resolve, 4000));
+    await new Promise(resolve => setTimeout(resolve, 6000));
 
     // Capture the screenshot
     console.log('Capturing screenshot...');
