@@ -16,6 +16,7 @@ html_template = """
     shadow-intensity="1" 
     environment-image="https://moose-on-road.github.io/dynamic/studio.hdr" 
     exposure="1"
+    interaction-prompt="none"
     camera-orbit="0deg 75deg 4m"
     style="width: 640px; height: 480px; border:2px solid #eeeeee;">
       <div class="progress-bar hide" slot="progress-bar">

@@ -10,13 +10,14 @@ async function generateThumbnail(modelUrl, outputPath) {
     const page = await browser.newPage();
     console.log('New page created.');
 
+    // Extract the embed path from the modelUrl
+    const embedPath = modelUrl.split('/').slice(-2).join('/').replace('.glb', '');
+
     // Create the HTML content dynamically
     const htmlContent = `
     <html>
     <body>
-    <model-viewer src="${modelUrl}" camera-controls shadow-intensity="1" exposure="2" style="width: 640px; height: 480px;">
-    </model-viewer>
-    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+    <embed src="https://moose-on-road.github.io/products/${embedPath}-dynamic.html" width="700px" height="500px"></embed>
     </body>
     </html>
     `;
@@ -26,10 +27,10 @@ async function generateThumbnail(modelUrl, outputPath) {
     await page.setContent(htmlContent, { waitUntil: 'networkidle2' });
     console.log('Page content set.');
 
-    // Wait for the model to load
-    console.log('Waiting for model-viewer selector...');
-    await page.waitForSelector('model-viewer');
-    console.log('Model-viewer selector found.');
+    // Wait for the embed element to load
+    console.log('Waiting for embed element...');
+    await page.waitForSelector('embed');
+    console.log('Embed element found.');
 
     // Add a delay to ensure the model loads
     console.log('Waiting for model to load...');
@@ -37,7 +38,7 @@ async function generateThumbnail(modelUrl, outputPath) {
 
     // Capture the screenshot
     console.log('Capturing screenshot...');
-    const element = await page.$('model-viewer');
+    const element = await page.$('embed');
     await element.screenshot({ path: outputPath });
     console.log('Screenshot captured.');
 
