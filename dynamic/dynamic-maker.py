@@ -6,14 +6,22 @@ os.chdir(script_dir)
 
 # Define the template with placeholders for the paths
 html_template = """
+<!DOCTYPE html>
+<html lang="en">
 <body>
-<model-viewer id="myModel" src="https://moose-on-road.github.io/products/{model_path}" camera-controls poster="https://moose-on-road.github.io/products/{poster_path}" shadow-intensity="1" environment-image="https://moose-on-road.github.io/dynamic/studio.hdr" exposure="1"
-style="width: 640px; height: 480px; border:2px solid #eeeeee;">
+<model-viewer id="myModel" 
+    src="https://moose-on-road.github.io/products/{model_path}" 
+    camera-controls 
+    poster="https://moose-on-road.github.io/products/{poster_path}" 
+    shadow-intensity="1" 
+    environment-image="https://moose-on-road.github.io/dynamic/studio.hdr" 
+    exposure="1"
+    camera-orbit="0deg 75deg 4m"
+    style="width: 640px; height: 480px; border:2px solid #eeeeee;">
       <div class="progress-bar hide" slot="progress-bar">
           <div class="update-bar"></div>
      </div>
-    </model-viewer> 
-</body> 
+     </model-viewer> 
 <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 <script>
   const modelViewer = document.getElementById('myModel');
@@ -31,14 +39,18 @@ style="width: 640px; height: 480px; border:2px solid #eeeeee;">
           // Set the base color factor using the hex color code
           material.pbrMetallicRoughness.setBaseColorFactor(hexColor);
           // Set the metallic factor to 0.2
-          material.pbrMetallicRoughness.metallicFactor = 0.2;
+          material.pbrMetallicRoughness.setMetallicFactor(0.2);
           // Set the roughness factor to 0.1
-          material.pbrMetallicRoughness.roughnessFactor = 0.1;
+          material.pbrMetallicRoughness.setRoughnessFactor(0.1);
         }});
       }}
+          // Rotate the camera
+          modelViewer.cameraOrbit = '180deg 75deg 4m'; // Adjust the values as needed
     }}
   }});
-</script>
+    </script>
+  </body>
+</html>
 <!--
 <embed src="https://moose-on-road.github.io/products/{embed_path}-dynamic.html" width="700px" height="500px"></embed>
 -->
@@ -66,7 +78,7 @@ def update_html(directory):
 
     # Simple logic to pick a model, poster, and environment image
     model_path = models[0] if models else "default_model.glb"
-    poster_path = next((img for img in images if img.endswith('.webp')))
+    poster_path = next((img for img in images if img.endswith('.webp')), "default_poster.webp")
     embed_path = model_path.replace('.glb', '')  # Remove the .glb extension for the embed path
     
     # Fill the template
