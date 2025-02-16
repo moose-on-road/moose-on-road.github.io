@@ -34,7 +34,7 @@ async function generateThumbnail(modelUrl, outputPath) {
 
     // Add a delay to ensure the model loads
     console.log('Waiting for model to load...');
-    await new Promise(resolve => setTimeout(resolve, 6000));
+    await new Promise(resolve => setTimeout(resolve, 10000));
 
     // Capture the screenshot
     console.log('Capturing screenshot...');
