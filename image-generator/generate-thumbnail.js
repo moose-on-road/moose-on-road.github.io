@@ -17,7 +17,7 @@ async function generateThumbnail(modelUrl, outputPath) {
     const htmlContent = `
     <html>
     <body>
-    <embed src="https://moose-on-road.github.io/products/${embedPath}-dynamic.html" width="700px" height="500px"></embed>
+    <embed src="https://moose-on-road.github.io/products/${embedPath}-dynamic.html" width= "660px" height= "480px"></embed>
     </body>
     </html>
     `;
