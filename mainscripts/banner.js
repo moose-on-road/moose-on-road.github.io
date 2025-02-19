@@ -21,6 +21,6 @@
             requestAnimationFrame(() => {
                 topBanner.classList.remove('visible');
             }) 
-        }, 8000);
+        }, 4000);
     }, 1500);
 

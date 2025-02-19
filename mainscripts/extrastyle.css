@@ -68,10 +68,12 @@ body {
 
 model-viewer {
   width: 100%;
-  height: 90%;
+  height: auto;
   background-color: #ffffff;
 }
-
+mvWindow {
+  width: 100%;
+}
 
 .progress-bar {
   display: block;
