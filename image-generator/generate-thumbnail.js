@@ -26,6 +26,7 @@ async function generateThumbnail(modelUrl, outputPath) {
     console.log('Setting page content...');
     await page.setContent(htmlContent, { waitUntil: 'networkidle2' });
     console.log('Page content set.');
+    console.log(`embed path: ${embedPath}`);
 
     // Wait for the embed element to load
     console.log('Waiting for embed element...');
