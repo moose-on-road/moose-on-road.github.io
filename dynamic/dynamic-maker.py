@@ -82,7 +82,7 @@ def update_html(directory):
 
     # Simple logic to pick a model, poster, and environment image
     model_path = models[0] if models else "default_model.glb"
-    poster_path = next((img for img in images if img.endswith('.webp')), "")
+    poster_path = next((img for img in images if img.endswith('.webp')), "default_poster.webp")
     embed_path = model_path.replace('.glb', '')  # Remove the .glb extension for the embed path
     
     # Fill the template
