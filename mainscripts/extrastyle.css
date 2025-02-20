@@ -100,4 +100,18 @@ model-viewer {
   float: left;
   transition: width 0.3s;
 }
-
+iframe {
+  max-width: 100%;
+}
+.responsive-container {
+  position: relative;
+  width: 100%;
+  padding-top: 75%; /* Aspect ratio 4:3 (height/width * 100%) */
+}
+.responsive-embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
