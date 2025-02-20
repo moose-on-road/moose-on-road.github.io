@@ -101,7 +101,7 @@ model-viewer {
   transition: width 0.3s;
 }
 
-#mvWindow {
+.mvWindow {
   max-width: 100vh;
   max-height: 100vw;
   min-height: 50vh;
