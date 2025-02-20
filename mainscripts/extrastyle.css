@@ -72,7 +72,8 @@ model-viewer {
   background-color: #ffffff;
 }
 mvWindow {
-  width: 100%;
+  max-width: 100vh;
+  max-height: 100vw;
 }
 
 .progress-bar {
