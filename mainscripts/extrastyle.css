@@ -102,11 +102,6 @@ model-viewer {
 }
 
 .mvWindow {
-  max-width: 100vh;
-  max-height: 100vw;
-  min-height: 50vh;
-}
-.container {
   position: relative;
   overflow: hidden;
   width: 100%;
