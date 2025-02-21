@@ -66,8 +66,8 @@ html_template = """
           material.pbrMetallicRoughness.setBaseColorFactor(hexColor);
           // Set the metallic factor to 0.2
           material.pbrMetallicRoughness.setMetallicFactor(0.2);
-          // Set the roughness factor to 0.1
-          material.pbrMetallicRoughness.setRoughnessFactor(0.1);
+          // Set the roughness factor to 0.18
+          material.pbrMetallicRoughness.setRoughnessFactor(0.18);
         }}
         }});
       }}
