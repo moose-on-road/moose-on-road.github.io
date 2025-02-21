@@ -8,7 +8,30 @@ os.chdir(script_dir)
 html_template = """
 <!DOCTYPE html>
 <html lang="en">
+<head>
+  <style>
+    .responsive-model-viewer {{
+      width: 100%;
+      height: 100%;
+      border: 2px solid #eeeeee;
+    }}
+    .responsive-container {{
+      position: relative;
+      width: 100%;
+      padding-top: 75%; /* Aspect ratio 4:3 (height/width * 100%) */
+    }}
+    .responsive-model-viewer-wrapper {{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }}
+  </style>
+</head>
 <body>
+  <div class="responsive-container">
+    <div class="responsive-model-viewer-wrapper">
 <model-viewer id="myModel" 
     src="https://moose-on-road.github.io/products/{model_path}" 
     camera-controls 
@@ -18,7 +41,7 @@ html_template = """
     environment-image="https://moose-on-road.github.io/dynamic/studio.hdr" 
     exposure="1"
     camera-orbit="0deg 75deg 4m"
-    style="width: 680px; height: 480px; border:2px solid #eeeeee;">
+    class="responsive-model-viewer">
       <div class="progress-bar hide" slot="progress-bar">
           <div class="update-bar"></div>
      </div>
@@ -56,7 +79,24 @@ html_template = """
   </body>
 </html>
 <!--
-<embed src="https://moose-on-road.github.io/products/{embed_path}-dynamic.html" width="700px" height="500px"></embed>
+<style>
+  iframe {{
+    max-width: 100%;
+  }}
+  .responsive-container {{
+    position: relative;
+    width: 100%;
+    padding-top: 75%; /* Aspect ratio 4:3 (height/width * 100%) */
+  }}
+  .responsive-embed {{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }}
+</style>
+<embed src="https://moose-on-road.github.io/products/{embed_path}-dynamic.html" class="responsive-embed">
 -->
 """
 
