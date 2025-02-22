@@ -97,7 +97,7 @@ html_template = """
   }}
 </style>
 <div class="responsive-container">
-<embed src="https://moose-on-road.github.io/products/v-leg-a/v-leg-a-dynamic.html" class="responsive-embed">
+<embed src="https://moose-on-road.github.io/products/{embed_path}-dynamic.html" class="responsive-embed">
 </div>
 -->
 """
